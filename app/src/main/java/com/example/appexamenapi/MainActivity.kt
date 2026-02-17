@@ -12,6 +12,7 @@ import com.example.appexamenapi.presentation.viewmodel.ProductsViewModel
 import com.example.appexamenapi.screens.ProductsScreen
 import com.example.appexamenapi.ui.theme.AppExamenApiTheme
 
+//Main de la app
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
