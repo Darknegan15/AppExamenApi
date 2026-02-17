@@ -1,4 +1,4 @@
-package com.example.appsimpson001.ui.theme
+package com.example.appexamenapi.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

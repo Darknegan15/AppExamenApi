@@ -1,4 +1,4 @@
-package com.example.appsimpson001.presentation.viewmodel
+package com.example.appexamenapi.presentation.viewmodel
 
 sealed interface UiState<out T> {
     data object Loading : UiState<Nothing>

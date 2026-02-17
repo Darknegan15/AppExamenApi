@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.appsimpson001"
+    namespace = "com.example.appexamenapi"
     compileSdk {
         version = release(36)
     }

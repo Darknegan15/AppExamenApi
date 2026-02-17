@@ -1,21 +1,21 @@
-package com.example.appsimpson001.data.remote
+package com.example.appexamenapi.data.remote
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-object SimpsonsNetwork {
+object ProductsNetwork {
 
-    private const val BASE_URL = "https://thesimpsonsapi.com/api/"
+    private const val BASE_URL = "https://peticiones.online/"
 
     private val moshi: Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    val api: SimpsonsApi = Retrofit.Builder()
+    val api: ProductsApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
-        .create(SimpsonsApi::class.java)
+        .create(ProductsApi::class.java)
 }

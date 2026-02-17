@@ -1,4 +1,4 @@
-package com.example.appsimpson001
+package com.example.appexamenapi
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

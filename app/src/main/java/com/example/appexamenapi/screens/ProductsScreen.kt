@@ -1,4 +1,4 @@
-package com.example.appsimpson001.screens
+package com.example.appexamenapi.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -27,17 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 
 import androidx.compose.ui.unit.dp
 
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
-import com.example.appsimpson001.data.model.CharacterDto
-import com.example.appsimpson001.presentation.viewmodel.SimpsonsViewModel
-import com.example.appsimpson001.presentation.viewmodel.UiState
+import com.example.appexamenapi.data.model.Product
+import com.example.appexamenapi.presentation.viewmodel.ProductsViewModel
+import com.example.appexamenapi.presentation.viewmodel.UiState
+
 @Composable
-fun CharactersScreen(vm: SimpsonsViewModel) {
+fun ProductsScreen(vm: ProductsViewModel) {
     when (val state = vm.state) {
 
         UiState.Loading -> Box(
@@ -54,7 +56,7 @@ fun CharactersScreen(vm: SimpsonsViewModel) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("Error: ${state.msg}")
                 Spacer(Modifier.height(12.dp))
-                Button(onClick = { vm.loadCharacters() }) {
+                Button(onClick = { vm.loadProducts() }) {
                     Text("Reintentar")
                 }
             }
@@ -65,30 +67,21 @@ fun CharactersScreen(vm: SimpsonsViewModel) {
             contentPadding = PaddingValues(12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(state.data, key = { it.id }) { character ->
-                CharacterCard(character)
+            items(state.data, key = { it.id }) { product ->
+                ProductCard(product)
             }
         }
     }
 }
 
 
-private fun buildImageUrl(portraitPath: String?): String? {
-    if (portraitPath.isNullOrBlank()) return null
 
-    return if (portraitPath.startsWith("http")) {
-        portraitPath
-    } else {
-        // CDN oficial de la API
-        "https://cdn.thesimpsonsapi.com/500$portraitPath"
-    }
-}
 
 @Composable
-private fun CharacterCard(c: CharacterDto) {
+private fun ProductCard(p: Product) {
 
-    val imageUrl = buildImageUrl(c.portraitPath)
-    val painter = rememberAsyncImagePainter(model = imageUrl)
+
+    val painter = rememberAsyncImagePainter(model = p.image)
 
     Card {
         Row(
@@ -117,7 +110,7 @@ private fun CharacterCard(c: CharacterDto) {
 
                 Image(
                     painter = painter,
-                    contentDescription = c.name,
+                    contentDescription = p.name,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
@@ -128,22 +121,24 @@ private fun CharacterCard(c: CharacterDto) {
             // Lo que va a salir al lado de la imagen
             Column(Modifier.weight(1f)) {
                 Text(
-                    text = c.name,
-                    style = MaterialTheme.typography.titleMedium
+                    text = p.name,
+                    style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+
                 )
                 Spacer(Modifier.height(4.dp))
+
                 Text(
-                    text = c.occupation ?: "—",
+                    text = "Categoría: ${p.category}",
                     style = MaterialTheme.typography.bodyMedium
                 )
-                // Solo pintamos el texto si la edad NO es nula
-                if (c.age != null) {
-                    Text(
-                        text = "Edad: ${c.age} años",
-                        style = MaterialTheme.typography.bodyMedium
+
+                Text(
+                    text = "${p.price} €",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
                     )
                 }
             }
         }
     }
-}

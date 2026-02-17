@@ -1,4 +1,4 @@
-package com.example.appsimpson001
+package com.example.appexamenapi
 
 import org.junit.Test
 
